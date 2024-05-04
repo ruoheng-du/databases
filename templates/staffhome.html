@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='home.css') }}">
+	<title>StaffHome</title>
+</head>
+<body>
+	<div class='top-nav'>
+		<nav>
+			<div style="text-align: right;">
+				<a href="/logout">LOGOUT</a>
+			</div>
+		</nav>
+	</div>
+	<hr>
+
+	<!-- Side navigation -->
+	<div class="sidenav">
+		<h1>Welcome {{username}}</h1>
+		<a href="/staffhome" style="color: #ab82c5;">Upcoming Flights</a>
+		<a href="/staffflight" style="color: white;">Change Flight Status</a>
+		<a href="/staffaddinfo" style="color: white;">Add Flight & Airplane & Airport & Agent</a>
+		<a href="/staffagent" style="color: white;">View Booking Agents</a>
+		<a href="/staffcus" style="color: white;">View Customers</a>
+		<a href="/staffDest" style="color: white;">View Top Destination</a>
+        <a href="/staffReve" style="color: white;">View Revenue Earned</a>
+        <a href="/staffTickets" style="color: white;">View Tickets Sold</a>
+		<a href="/staffgrant" style="color: white;">Grant Permission</a>
+	</div>
+	
+	<div class="main">
+		<h2>Airline's Upcoming Flights</h2>
+
+		{% if posts %}
+		<table class="table table-bordered table-sm">
+			<thead>
+				<th>airplane id</th>
+				<th>flight num</th>
+				<th>departure airport</th>
+				<th>departure time</th>
+				<th>arrival airport</th>
+				<th>arrival time</th>
+			</thead>
+
+			<tbody>
+			{% for line in posts %}
+				<tr>
+					<td>{{line[2]}}</td>
+					<td>{{line[3]}}</td>
+					<td>{{line[4]}}</td>
+					<td>{{line[6]}}</td>
+					<td>{{line[5]}}</td>
+					<td>{{line[7]}}</td>	
+				</tr>
+			{% endfor %}
+			</tbody>
+		</table>
+		
+		{% else %}
+		<h5>No Upcoming Flights</h5>
+
+		{% endif %}
+
+	</div>
+</body>
+
+
+</html>

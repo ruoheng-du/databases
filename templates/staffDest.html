@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='home.css') }}">
+    <title>staffDest</title>
+</head>
+
+<body>
+    <div class='top-nav'>
+        <nav>
+            <div style="text-align: right;">
+                <a href="/logout">LOGOUT</a>
+            </div>
+        </nav>
+    </div>
+    <hr>
+    
+    <div class="sidenav">
+        <h1>Welcome {{username}}</h1>
+        <a href="/staffhome" style="color: white;">Upcoming Flights</a>
+        <a href="/staffflight" style="color: white;">Change Flight Status</a>
+        <a href="/staffaddinfo" style="color: white;">Add Flight & Airplane & Airport & Agent</a>
+        <a href="/staffagent" style="color: white;">View Booking Agents</a>
+        <a href="/staffcus" style="color: white;">View Customers</a>
+        <a href="/staffDest" style="color: #ab82c5;">View Top Destination</a>
+        <a href="/staffReve" style="color: white;">View Revenue Earned</a>
+        <a href="/staffTickets" style="color: white;">View Tickets Sold</a>
+        <a href="/staffgrant" style="color: white;">Grant Permission</a>
+    </div>
+
+    <div class="main">
+        <h2>View Top Destination</h2>
+            <h3 style="text-align: center;">Top 3 Most Popular Destination Last 3 months</h3>
+            <table class="table table-bordered table-sm">
+                <th>city</th>
+                <th>number of ticket</th>
+            {% for line in month %}		
+                <tr>
+                    <td>{{line[0]}}</td>
+                    <td>{{line[1]}}</td>
+                </tr>
+            {% endfor %}
+            </table>
+
+            <h3 style="text-align: center;">Top 3 Most Popular Destination Last Year</h3>
+            <table class="table table-bordered table-sm">
+                <th>city</th>
+                <th>number of ticket</th>
+
+            {% for line in year %}		
+                <tr>
+                    <td>{{line[0]}}</td>
+                    <td>{{line[1]}}</td>
+                </tr>
+            {% endfor %}
+            </table>
+        
+        </div>
+
+</body>
+</html>

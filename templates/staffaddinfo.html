@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='home.css') }}">
+    <title>AddInfo</title>
+</head>
+
+<body>
+    <div class='top-nav'>
+        <nav>
+            <div style="text-align: right;">
+                <a href="/logout">LOGOUT</a>
+            </div>
+        </nav>
+    </div>
+    <hr>
+    
+    <div class="sidenav">
+        <h1>Welcome {{username}}</h1>
+        <a href="/staffhome" style="color: white;">Upcoming Flights</a>
+        <a href="/staffflight" style="color: white;">Change Flight Status</a>
+        <a href="/staffaddinfo" style="color: #ab82c5;">Add Flight & Airplane & Airport & Agent</a>
+        <a href="/staffagent" style="color: white;">View Booking Agents</a>
+        <a href="/staffcus" style="color: white;">View Customers</a>
+        <a href="/staffDest" style="color: white;">View Top Destination</a>
+        <a href="/staffReve" style="color: white;">View Revenue Earned</a>
+        <a href="/staffTickets" style="color: white;">View Tickets Sold</a>
+        <a href="/staffgrant" style="color: white;">Grant Permission</a>
+    </div>
+
+    <div class="main">
+        <h2>Add Flight & Airplane & Airport & Agent</h2>
+        
+        <div style="text-align: center;">
+
+            <h3>Add Flight</h3>
+            <form action="/add_flight" method="POST">
+                <label>Flight Number:</label>
+                <input name="flight_num" 
+                        oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" 
+                        type = "number" placeholder="flight_num" 
+                        maxlength = "9" 
+                        required/></br>
+
+                <label>Departure Airport:</label>
+                <input type="text" name = "departure_airport" placeholder="departure_airport" maxlength="50" required/> </br>
+                <label>Departure Time:</label>
+                <input type="date" name = "departure_date" placeholder="departure_date" onfocus="(this.type='date')"  onblur="(this.type='text')" required/>
+                <input type="time" name = "departure_time" placeholder="departure_time" required/> </br>
+                <label>Arrival Airport:</label>
+                <input type="text" name = "arrival_airport" placeholder="arrival_airport" maxlength="50" required/> </br>
+                <label>Arrival Time:</label>
+                <input type="date" name = "arrival_date" placeholder="arrival_date" onfocus="(this.type='date')"  onblur="(this.type='text')" required/>
+                <input type="time" name = "arrival_time" placeholder="arrival_time" required/> </br>
+
+                <label>Number of Tickets:</label>
+                <input name="number" 
+                        oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" 
+                        type = "number" placeholder="number" 
+                        maxlength = "10" 
+                        required/></br>
+
+                <label>Price:</label>
+                <input name="price" 
+                        oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" 
+                        type = "number" placeholder="price" 
+                        maxlength = "10" 
+                        required/></br>
+
+                <label for="status">Status:</label>
+                <select name="status" required>
+                    <option value="Upcoming">Upcoming</option>
+                    <option value="Delayed">Delayed</option>
+                    <option value="In-progress">In-progress</option>
+                </select></br>
+                
+                <label>Airplane ID:</label>
+                <select name="airplane_id" required>
+                    {% if airplane%}
+                    {% for line in airplane %}
+                    <option value="{{line[0]}}">{{line[0]}}</option>
+                    {% endfor %}
+                    {% endif %}
+                </select>
+                </br>
+
+                <input type="submit" class="btn btn-primary" value = 'Add Flight' />
+                {% if error1 %}
+                    <p class="text-danger"><strong>Error:</strong> {{error1}}</p>
+                {% endif %}
+                {% if message1 %}
+                    <p class="text-success">{{message1}}</p>
+                {% endif %}
+            </form>   
+        <hr>
+
+            <h3>Add Airplane</h3>
+            <form action="/add_airplane" method="POST">
+
+                <label>Airplane ID:</label>
+                <input name="airplane_id" 
+                    oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" 
+                    type = "number" placeholder="airplane_id" 
+                    maxlength = "9" 
+                    required/></br>  
+                
+                <label>Seats:</label>
+                <input name="seats" 
+                    oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" 
+                    type = "number" placeholder="seats" 
+                    maxlength = "9" 
+                    required/></br>  
+                </br>
+
+                <input type="submit" class="btn btn-primary" value = 'Add Airplane' />
+                {% if error2 %}
+                    <p class="text-danger"><strong>Error:</strong> {{error2}}</p>
+                {% endif %}
+                {% if message2 %}
+                    <p class="text-success">{{message2}}</p>
+                {% endif %}
+            </form>
+            {% if airplane %}
+            </br>
+            <table class="table table-bordered table-sm">
+                <thead>
+                    <th>airplane id</th>
+                    <th>seats</th>
+                </thead>
+                <tbody>
+                {% for line in airplane %}
+                    <tr>
+                        <td>{{line[0]}}</td>
+                        <td>{{line[1]}}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <h5>No Airplane</h5>
+            {% endif %}
+        <hr>
+
+            <h3>Add Airport</h3>
+            <form action="/add_airport" method="POST">
+                <label>Airport Name:</label>
+                <input type="text" name = "airport_name" placeholder="airport_name" maxlength="50" required/> </br>
+                <label>Airport City:</label>
+                <input type="text" name = "airport_city" placeholder="airport_city" maxlength="50" required/> </br>
+                </br>
+                <input type="submit" class="btn btn-primary" value = 'Add Airport' />
+                {% if error3 %}
+                    <p class="text-danger"><strong>Error:</strong> {{error3}}</p>
+                {% endif %}
+                {% if message3 %}
+                    <p class="text-success">{{message3}}</p>
+                {% endif %}
+            </form>
+        <hr>
+        
+            <h3>Add Agent</h3>
+            <form action="/add_agent" method="POST">
+                <label>Agent Email:</label>
+                <input type="text" name = "email" placeholder="agent_email" maxlength="50" required/> </br>
+                </br>
+                <input type="submit" class="btn btn-primary" value = 'Add Agent' />
+                {% if error4 %}
+                    <p class="text-danger"><strong>Error:</strong> {{error4}}</p>
+                {% endif %}
+                {% if message4 %}
+                    <p class="text-success">{{message4}}</p>
+                {% endif %}
+            </form>
+        </div>    
+
+</body>
+</html>

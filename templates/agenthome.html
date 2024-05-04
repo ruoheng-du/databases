@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='home.css') }}">
+	<title>AgentHome</title>
+</head>
+<body>
+	<div class='top-nav'>
+		<nav>
+			<div style="text-align: right;">
+				<a href="/logout">LOGOUT</a>
+			</div>
+		</nav>
+	</div>
+	<hr>
+
+	<!-- Side navigation -->
+	<div class="sidenav">
+		<h1>Welcome {{emailName}}</h1>
+		<a href="/agentHome" style="color: #ab82c5;">My Flights</a>
+		<a href="/agentSearchPurchase" style="color: white;">Search & Purchase Tickets</a>
+		<a href="/agentCommission" style="color: white;">My Commission</a>
+		<a href="/agentTopCustomers" style="color: white;">Top Customers</a>
+	</div>
+	
+	<!-- Page content -->
+	<div class="main">
+		<h2>My Upcoming Flights</h2>
+		<h5>My booking_agent_id: {{booking_agent_id[0]}}</h5>
+		
+		{% if view_my_flights %}
+		</br>
+        <table class="table table-bordered table-sm">
+            <thead>
+				<th>ticket id</th>
+				<th>customer email</th>
+				<th>purchase date</th>
+                <th>airline name</th>
+                <th>flight num</th>
+				<th>departure city&airport</th>
+				<th>departure time</th>
+				<th>arrival city&airport</th>
+				<th>arrival time</th>
+				<th>price</th>
+            </thead>
+
+            <tbody>
+            {% for line in view_my_flights %}
+                <tr>
+					<td>{{line[4]}}</td>
+					<td>{{line[2]}}</td>
+					<td>{{line[3]}}</td>
+                    <td>{{line[5]}}</td>
+					<td>{{line[6]}}</td>
+					<td>{{line[7]}} {{line[8]}}</td>
+					<td>{{line[9]}}</td>
+					<td>{{line[10]}} {{line[11]}}</td>
+					<td>{{line[12]}}</td>
+					<td>{{line[13]}}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+		</table>
+		
+		{% else %}
+		<h5>No Upcoming Flights</h5>
+
+        {% endif %}
+
+	</div>
+
+</body>
+</html>
