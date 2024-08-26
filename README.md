@@ -3,7 +3,7 @@ This is the repository for databases system project doned in Databases course at
 
 ## Flyeasy
 
-* This project is done in collaboration with Ray Bao and Victoria Fu.
+* This project is done in collaboration with Victoria Fu.
 
 <img width="800" alt="homepage" src="https://github.com/ruoheng-du/databases/raw/main/assets/homepage.png">
 
